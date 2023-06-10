@@ -1,12 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
 import { store } from '@store';
+import { App } from './app';
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
     <Provider store={store}>
-      <p>Star People</p>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </StrictMode>,
 );
