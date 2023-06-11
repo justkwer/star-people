@@ -26,7 +26,8 @@
       "@store": ["./src/store"],
       "@pages": ["./src/pages"],
       "@routes": ["./src/routes"],
-      "@containers": ["./src/containers"]
+      "@containers": ["./src/containers"],
+      "@components": ["./src/components"]
     }
   },
   "include": ["src"],

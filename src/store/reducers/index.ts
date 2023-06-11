@@ -1,1 +1,6 @@
-export { people, addPeople, getApiPeople } from '@store/reducers/people';
+export {
+  people,
+  addPeople,
+  toggleLoading,
+  getApiPeople,
+} from '@store/reducers/people';

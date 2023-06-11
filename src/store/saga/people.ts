@@ -1,15 +1,19 @@
 import { call, put } from 'redux-saga/effects';
-import { addPeople } from '@store/reducers';
-import { People } from '@/core/types';
+import { addPeople, toggleLoading } from '@store/reducers';
+import { PeopleResponse } from '@/core/types';
 import { AxiosResponse } from 'axios';
 import { api } from '@/core/api';
 
 export function* addPeopleWorker() {
   try {
-    const { data }: AxiosResponse<People[]> = yield call(api.get, '/people');
-
-    yield put(addPeople(data));
+    yield put(toggleLoading(true));
+    const { data }: AxiosResponse<PeopleResponse> = yield call(
+      api.get,
+      '/people',
+    );
+    yield put(addPeople(data.results));
+    yield put(toggleLoading(false));
   } catch {
-    console.log('error');
+    yield put(toggleLoading(false));
   }
 }

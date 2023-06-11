@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface People {
   name: string;
   height: string;
@@ -15,4 +17,9 @@ export interface People {
   created: string;
   edited: string;
   url: string;
+}
+
+export interface PeopleCardProps extends People {
+  edit?: boolean;
+  setPerson?: Dispatch<SetStateAction<People | null>>;
 }

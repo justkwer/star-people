@@ -1,3 +1,3 @@
-export { PathsToPage } from './router';
+export { PathsToPage, navLinks } from './router';
 
-export { apiUrl, GET_API_PEOPLE } from './constants';
+export { apiUrl, GET_API_PEOPLE, searchInput, emptyTitle } from './constants';

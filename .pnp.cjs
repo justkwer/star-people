@@ -30,6 +30,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@emotion/react", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:11.11.1"],\
             ["@emotion/styled", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:11.11.0"],\
+            ["@fontsource/roboto", "npm:5.0.3"],\
+            ["@mui/icons-material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.11.16"],\
             ["@mui/material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.13.4"],\
             ["@reduxjs/toolkit", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:1.9.5"],\
             ["@types/axios", "npm:0.14.0"],\
@@ -859,6 +861,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@fontsource/roboto", [\
+        ["npm:5.0.3", {\
+          "packageLocation": "./.yarn/cache/@fontsource-roboto-npm-5.0.3-60a78fc9b2-70302e1165.zip/node_modules/@fontsource/roboto/",\
+          "packageDependencies": [\
+            ["@fontsource/roboto", "npm:5.0.3"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@gar/promisify", [\
         ["npm:1.1.3", {\
           "packageLocation": "./.yarn/cache/@gar-promisify-npm-1.1.3-ac1a325862-4059f790e2.zip/node_modules/@gar/promisify/",\
@@ -994,6 +1005,33 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@mui-core-downloads-tracker-npm-5.13.4-4d9a9c41db-2d709a3efe.zip/node_modules/@mui/core-downloads-tracker/",\
           "packageDependencies": [\
             ["@mui/core-downloads-tracker", "npm:5.13.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@mui/icons-material", [\
+        ["npm:5.11.16", {\
+          "packageLocation": "./.yarn/cache/@mui-icons-material-npm-5.11.16-d962649d08-db70426b6e.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "npm:5.11.16"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.11.16", {\
+          "packageLocation": "./.yarn/__virtual__/@mui-icons-material-virtual-42bfa004de/0/cache/@mui-icons-material-npm-5.11.16-d962649d08-db70426b6e.zip/node_modules/@mui/icons-material/",\
+          "packageDependencies": [\
+            ["@mui/icons-material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.11.16"],\
+            ["@babel/runtime", "npm:7.22.5"],\
+            ["@mui/material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.13.4"],\
+            ["@types/mui__material", null],\
+            ["@types/react", "npm:18.2.9"],\
+            ["react", "npm:18.2.0"]\
+          ],\
+          "packagePeers": [\
+            "@mui/material",\
+            "@types/mui__material",\
+            "@types/react",\
+            "react"\
           ],\
           "linkType": "HARD"\
         }]\
@@ -5513,6 +5551,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["star-people", "workspace:."],\
             ["@emotion/react", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:11.11.1"],\
             ["@emotion/styled", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:11.11.0"],\
+            ["@fontsource/roboto", "npm:5.0.3"],\
+            ["@mui/icons-material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.11.16"],\
             ["@mui/material", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:5.13.4"],\
             ["@reduxjs/toolkit", "virtual:70bbf405c0b7bb51020ca2afd0a17029a19efc56c93cf20ec14967a2bb0db010b8926776a6d4fe2efe45151de9d2ab58bc7ddf099a569b0ba45371302aa6bef9#npm:1.9.5"],\
             ["@types/axios", "npm:0.14.0"],\
