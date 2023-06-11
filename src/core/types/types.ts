@@ -1,11 +1,15 @@
 import { TypographyProps } from '@mui/material/Typography';
 import { TextFieldProps } from '@mui/material/TextField';
 
-import { People, PeopleCardProps } from '@core/types';
+import { People, Person } from '@core/types';
 
 export type PeopleState = {
-  people: undefined | People[];
+  people: undefined | Person[];
   loading: boolean;
+};
+
+export type PersonState = {
+  edit: boolean;
 };
 
 export type PeopleResponse = {
@@ -19,9 +23,14 @@ export type EmptyProps = {
   title: string;
 };
 
+export type UpdatePersonAction = {
+  id: string;
+  [field: string]: string;
+};
+
 export type FieldProps = {
-  edit?: boolean;
+  id: string;
+  field: string;
   title: string;
   prop: [TextFieldProps, TypographyProps];
-  setPerson: PeopleCardProps['setPerson'];
 };

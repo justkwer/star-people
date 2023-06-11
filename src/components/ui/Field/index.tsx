@@ -1,17 +1,29 @@
+import { useAppSelector } from '@/core/hooks';
 import { FieldProps } from '@/core/types';
+import { updatePerson } from '@/store/reducers';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
+import { useDispatch } from 'react-redux';
 
-export const Field: FC<FieldProps> = ({ edit, title, prop, setPerson }) => {
+export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
+  const { edit } = useAppSelector((state) => state.person);
+  const dispatch = useDispatch();
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(
+      updatePerson({
+        id: id,
+        [field]: event.target.value,
+      }),
+    );
+  };
+
   return edit ? (
     <TextField
-      label={edit ? 'Controlled' : 'Uncontrolled'}
-      value={title}
-      error={title.length === 0 && true}
-      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-        setPerson({ [title]: event.target.value });
-      }}
+      label={'Uncontroled'}
+      defaultValue={title}
+      onChange={handleChange}
       {...prop[0]}
     />
   ) : (

@@ -1,4 +1,4 @@
-import { PeopleCardProps } from '@/core/types';
+import { Person } from '@/core/types';
 import { FC } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -14,19 +14,21 @@ import {
   massProp,
 } from './styles';
 
-export const PeopleCard: FC<PeopleCardProps> = ({
+export const PeopleCard: FC<Person & { click?: boolean }> = ({
+  id,
   name,
   height,
   mass,
   birth_year,
   gender,
-  edit,
-  setPerson,
+  click,
 }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    if (edit === undefined) navigate(`person/${name}`);
+    if (click === undefined) {
+      navigate(`person/${name}`);
+    }
   };
 
   return (
@@ -34,36 +36,16 @@ export const PeopleCard: FC<PeopleCardProps> = ({
       <Card sx={{ width: 1 / 1 }} onClick={handleClick}>
         <CardActionArea>
           <CardContent>
+            <Field id={id} field="name" title={name} prop={nameProp} />
+            <Field id={id} field="gender" title={gender} prop={genderProp} />
             <Field
-              edit={edit}
-              title={name}
-              prop={nameProp}
-              setPerson={setPerson}
-            />
-            <Field
-              edit={edit}
-              title={gender}
-              prop={genderProp}
-              setPerson={setPerson}
-            />
-            <Field
-              edit={edit}
+              id={id}
+              field="birth_year"
               title={birth_year}
               prop={birthProp}
-              setPerson={setPerson}
             />
-            <Field
-              edit={edit}
-              title={height}
-              prop={heightProp}
-              setPerson={setPerson}
-            />
-            <Field
-              edit={edit}
-              title={mass}
-              prop={massProp}
-              setPerson={setPerson}
-            />
+            <Field id={id} field="height" title={height} prop={heightProp} />
+            <Field id={id} field="mass" title={mass} prop={massProp} />
           </CardContent>
         </CardActionArea>
       </Card>

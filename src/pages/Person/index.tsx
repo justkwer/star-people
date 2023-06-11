@@ -5,50 +5,34 @@ import DoneIcon from '@mui/icons-material/Done';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Fab, CircularProgress } from '@mui/material';
-import { Empty, PeopleCard } from '@/components';
-import { addPeople } from '@/store/reducers/people';
+import { PeopleCard } from '@/components';
 import { useDispatch } from 'react-redux';
-import { People } from '@/core/types';
-import { emptyTitle } from '@/core/constants';
+import { toggleEdit } from '@/store/reducers';
+import { Person } from '@/core/types';
 
 export const PersonPage = () => {
   const { name } = useParams();
-  const { people } = useAppSelector((state) => state.people);
-  const [edit, setEdit] = useState(false);
   const dispatch = useDispatch();
-  const [error, setError] = useState(false);
-  const [person, setPerson] = useState<People | null>(null);
+  const { people } = useAppSelector((state) => state.people);
+  const [person, setPerson] = useState<Person | null>(null);
+  const { edit } = useAppSelector((state) => state.person);
 
   useEffect(() => {
     if (people) {
-      const findedPerson = people.find((el) => el.name === name);
-      if (findedPerson) return setPerson(findedPerson);
-      setError(true);
+      setPerson(people.find((el) => el.name === name) ?? null);
     }
   }, [people, name]);
 
   const handleClick = () => {
-    if (!edit) return setEdit(true);
-
-    if (people) {
-      const newPeople = people.map((el) => {
-        const res = { ...el };
-        if (res.name === 'R2-D2') res.name = 'valera';
-        return res;
-      });
-      dispatch(addPeople(newPeople));
-      setEdit(false);
-    }
+    dispatch(toggleEdit(!edit));
   };
 
   return (
     <Container>
-      {error ? (
-        <Empty title={emptyTitle[1]}></Empty>
-      ) : person ? (
+      {person ? (
         <>
           <Fab onClick={handleClick}>{edit ? <DoneIcon /> : <EditIcon />}</Fab>
-          <PeopleCard {...person} edit={edit} setPerson={setPerson} />
+          <PeopleCard {...person} click={true} />
         </>
       ) : (
         <CircularProgress />

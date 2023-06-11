@@ -33,15 +33,6 @@ export const MainPage = () => {
 
   return (
     <Container>
-      <TextField
-        id="search"
-        label={searchInput}
-        fullWidth
-        value={value}
-        onChange={handleChange}
-        type="search"
-        variant="filled"
-      />
       {loading ? (
         <CircularProgress />
       ) : searchedJobs ? (
@@ -49,6 +40,15 @@ export const MainPage = () => {
           <Empty title={emptyTitle[0]} />
         ) : (
           <>
+            <TextField
+              id="search"
+              label={searchInput}
+              fullWidth
+              value={value}
+              onChange={handleChange}
+              type="search"
+              variant="filled"
+            />
             <Cards cards={searchedJobs.slice(firstCountry, lastCountry)} />
             <Pagination
               page={activePage}

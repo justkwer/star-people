@@ -6,13 +6,11 @@ import { api } from '@/core/api';
 
 export function* addPeopleWorker() {
   try {
-    yield put(toggleLoading(true));
     const { data }: AxiosResponse<PeopleResponse> = yield call(
       api.get,
       '/people',
     );
     yield put(addPeople(data.results));
-    yield put(toggleLoading(false));
   } catch {
     yield put(toggleLoading(false));
   }
