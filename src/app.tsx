@@ -1,14 +1,14 @@
 import { Suspense, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Header } from '@containers';
+import { Header } from '@components';
 import { PathsToPage } from '@core/constants';
 import { ErrorPage, MainPage, PersonPage } from '@pages';
-import { useAppSelector } from '@core/hooks';
-import { useDispatch } from 'react-redux';
-import { getApiPeople } from './store/reducers';
+import { useDispatch, useSelector } from 'react-redux';
+import { getApiPeople } from '@store/reducers';
+import { selectPeople } from '@store/selectors';
 
 export const App = () => {
-  const { people } = useAppSelector((state) => state.people);
+  const { people } = useSelector(selectPeople);
   const dispatch = useDispatch();
 
   useEffect(() => {

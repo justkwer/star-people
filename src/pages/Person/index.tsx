@@ -6,16 +6,17 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Fab, CircularProgress } from '@mui/material';
 import { PeopleCard } from '@/components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleEdit } from '@/store/reducers';
 import { Person } from '@/core/types';
+import { selectPeople, selectPerson } from '@/store/selectors';
 
 export const PersonPage = () => {
   const { name } = useParams();
   const dispatch = useDispatch();
-  const { people } = useAppSelector((state) => state.people);
+  const { people } = useSelector(selectPeople);
+  const { edit } = useSelector(selectPerson);
   const [person, setPerson] = useState<Person | null>(null);
-  const { edit } = useAppSelector((state) => state.person);
 
   useEffect(() => {
     if (people) {

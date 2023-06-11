@@ -1,17 +1,18 @@
 import { Cards, Empty } from '@/components';
 import { searchInput, emptyTitle } from '@/core/constants';
-import { useAppSelector } from '@/core/hooks';
 import { searchRegExp } from '@/core/utils';
+import { selectPeople } from '@/store/selectors';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
 import { ChangeEvent, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 export const MainPage = () => {
-  const { people, loading } = useAppSelector((state) => state.people);
+  const { people, loading } = useSelector(selectPeople);
   const [value, setValue] = useState<string>('');
-  const [activePage, setActivePage] = useState(1);
+  const [activePage, setActivePage] = useState<number>(1);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setValue(e.target.value.trim());
@@ -19,7 +20,7 @@ export const MainPage = () => {
   const handlePageChange = (event: ChangeEvent<unknown>, page: number) =>
     setActivePage(page);
 
-  const searchedJobs = useMemo(
+  const searchedPerson = useMemo(
     () =>
       value !== searchInput
         ? people?.filter((person) => person.name.match(searchRegExp(value)))
@@ -27,16 +28,20 @@ export const MainPage = () => {
     [value, people],
   );
 
-  const jobsLength = searchedJobs?.length ?? 3;
-  const lastCountry = activePage * 4;
-  const firstCountry = lastCountry - 4;
+  const personLength = useMemo(
+    () => searchedPerson?.length ?? 3,
+    [searchedPerson],
+  );
+  const lastPerson = useMemo(() => activePage * 4, [activePage]);
+  const firstPerson = useMemo(() => lastPerson - 4, [lastPerson]);
+  const count = useMemo(() => Math.ceil(personLength / 4), [personLength]);
 
   return (
     <Container>
       {loading ? (
         <CircularProgress />
-      ) : searchedJobs ? (
-        searchedJobs.length === 0 ? (
+      ) : searchedPerson ? (
+        searchedPerson.length === 0 ? (
           <Empty title={emptyTitle[0]} />
         ) : (
           <>
@@ -49,10 +54,10 @@ export const MainPage = () => {
               type="search"
               variant="filled"
             />
-            <Cards cards={searchedJobs.slice(firstCountry, lastCountry)} />
+            <Cards cards={searchedPerson.slice(firstPerson, lastPerson)} />
             <Pagination
               page={activePage}
-              count={Math.ceil(jobsLength / 4)}
+              count={count}
               onChange={handlePageChange}
             />
           </>

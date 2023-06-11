@@ -7,4 +7,6 @@ export type {
   PeopleResponse,
   EmptyProps,
   FieldProps,
+  NavigationProps,
+  CardsProps,
 } from './types';

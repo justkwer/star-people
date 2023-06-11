@@ -34,3 +34,11 @@ export type FieldProps = {
   title: string;
   prop: [TextFieldProps, TypographyProps];
 };
+
+export type NavigationProps = {
+  onBurger?: boolean;
+};
+
+export type CardsProps = {
+  cards: Person[];
+};

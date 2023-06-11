@@ -3,8 +3,9 @@ import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { FC } from 'react';
+import { NavigationProps } from '@/core/types';
 
-export const Navigation: FC<{ onBurger?: boolean }> = ({ onBurger }) => (
+export const Navigation: FC<NavigationProps> = ({ onBurger }) => (
   <Toolbar
     sx={{
       display: onBurger

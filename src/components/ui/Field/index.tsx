@@ -1,13 +1,13 @@
-import { useAppSelector } from '@/core/hooks';
 import { FieldProps } from '@/core/types';
 import { updatePerson } from '@/store/reducers';
+import { selectPerson } from '@/store/selectors';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { FC, ChangeEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
-  const { edit } = useAppSelector((state) => state.person);
+  const { edit } = useSelector(selectPerson);
   const dispatch = useDispatch();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
 
   return edit ? (
     <TextField
-      label={'Uncontroled'}
+      label="Uncontroled"
       defaultValue={title}
       onChange={handleChange}
       {...prop[0]}

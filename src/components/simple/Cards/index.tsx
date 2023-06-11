@@ -1,12 +1,12 @@
 import { PeopleCard } from '@/components';
-import { People } from '@/core/types';
+import { CardsProps } from '@/core/types';
 import Grid from '@mui/material/Grid';
 import { FC } from 'react';
 
-export const Cards: FC<{ cards: People[] }> = ({ cards }) => (
+export const Cards: FC<CardsProps> = ({ cards }) => (
   <Grid container spacing={3}>
     {cards.map((person) => (
-      <PeopleCard {...person} key={person.name} />
+      <PeopleCard {...person} key={person.id} />
     ))}
   </Grid>
 );
