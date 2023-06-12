@@ -8,6 +8,11 @@ export type PeopleState = {
   edit: boolean;
 };
 
+export type PersonState = {
+  person?: Person;
+  edit: boolean;
+};
+
 export type PeopleResponse = {
   count: number;
   next: string;
@@ -19,8 +24,12 @@ export type EmptyProps = {
   title: string;
 };
 
-export type UpdatePersonAction = {
+export type UpdatePopleAction = {
   id: string;
+  [field: string]: string;
+};
+
+export type UpdatePersonAction = {
   [field: string]: string;
 };
 

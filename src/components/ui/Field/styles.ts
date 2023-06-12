@@ -5,6 +5,8 @@ export type FieldSx = {
   variant?: string;
   gutterBottom?: boolean;
   textAlign?: string;
+  display?: string;
+  gap?: string;
 };
 
 export type FieldProp = {
@@ -19,7 +21,6 @@ export const fieldSx: FieldProp = {
   name: [
     {
       required: true,
-      label: 'Required',
       variant: 'filled',
     },
     { variant: 'h5', textAlign: 'center' },
@@ -27,41 +28,45 @@ export const fieldSx: FieldProp = {
   gender: [
     {
       required: true,
-      label: 'Required',
       variant: 'filled',
     },
     {
       variant: 'h6',
+      display: 'flex',
+      gap: '10px',
     },
   ],
   ['birth_year']: [
     {
       required: true,
-      label: 'Required',
       variant: 'filled',
     },
     {
       variant: 'h6',
+      display: 'flex',
+      gap: '10px',
     },
   ],
   height: [
     {
       required: true,
-      label: 'Required',
       variant: 'filled',
     },
     {
       variant: 'h6',
+      display: 'flex',
+      gap: '10px',
     },
   ],
   mass: [
     {
       required: true,
-      label: 'Required',
       variant: 'filled',
     },
     {
       variant: 'h6',
+      display: 'flex',
+      gap: '10px',
     },
   ],
 };

@@ -14,13 +14,13 @@ import { textField, containerSx, paginationSx } from './styles';
 
 export const MainPage = () => {
   const { people, loading, page } = useSelector(selectPeople);
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState<string | null>(null);
   const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchText(e.target.value);
 
-  const searchDebounce = useDebounce(searchText, 1000);
+  const searchDebounce = useDebounce(searchText ?? '', 1000);
 
   const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
     dispatch(changePage(newPage));
@@ -34,14 +34,16 @@ export const MainPage = () => {
   useEffect(() => {
     if (searchDebounce !== '') {
       dispatch(searchTransfer(searchDebounce));
-    } else dispatch(pageTransfer(page));
-  }, [searchDebounce, dispatch, page]);
+    } else if (searchDebounce === '' && searchText !== null) {
+      dispatch(pageTransfer(page));
+    }
+  }, [dispatch, page, searchDebounce]);
 
   return (
     <Container {...containerSx}>
       <TextField
         label={SEARCH_INPUT}
-        value={searchText}
+        value={searchText ?? ''}
         onChange={handleChange}
         {...textField}
       />

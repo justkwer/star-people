@@ -1,37 +1,47 @@
 import { FieldProps } from '@/core/types';
-import { updatePerson } from '@/store/reducers';
+import { updatePoeple } from '@/store/reducers';
 import { selectPeople } from '@/store/selectors';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { FC, ChangeEvent } from 'react';
+import { FC, ChangeEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fieldSx } from './styles';
+import { Box } from '@mui/material';
 
 export const Field: FC<FieldProps> = ({ id, field, title }) => {
   const { edit } = useSelector(selectPeople);
   const dispatch = useDispatch();
+  const [error, setError] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(
-      updatePerson({
-        id: id,
-        [field]: event.target.value,
-      }),
-    );
+    const value = event.target.value.trim();
+
+    if (value) {
+      if (error) {
+        setError(false);
+      } else
+        dispatch(
+          updatePoeple({
+            id: id,
+            [field]: value,
+          }),
+        );
+    } else setError(true);
   };
 
   return edit ? (
     <TextField
-      label="Uncontroled"
+      error={error}
       defaultValue={title}
+      label={field}
       onChange={handleChange}
-      {...fieldSx[field][0]}
+      {...fieldSx[field].at(0)}
     />
   ) : (
-    <Typography {...fieldSx[field][1]}>
+    <Typography {...fieldSx[field].at(1)}>
       {field !== 'name' && field !== 'birth_year' && field + ': '}
       {field === 'birth_year' && 'birth: '}
-      {title}
+      <Box color="blue">{title}</Box>
     </Typography>
   );
 };

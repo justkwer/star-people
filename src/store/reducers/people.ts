@@ -1,5 +1,5 @@
 import { GET_API_PEOPLE } from '@/core/constants';
-import { People, PeopleState, UpdatePersonAction } from '@/core/types';
+import { People, PeopleState, UpdatePopleAction } from '@/core/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PeopleState = {
@@ -32,7 +32,7 @@ export const peopleSlice = createSlice({
     toggleEdit: (state, action: PayloadAction<boolean>) => {
       state.edit = action.payload;
     },
-    updatePerson: (state, action: PayloadAction<UpdatePersonAction>) => {
+    updatePoeple: (state, action: PayloadAction<UpdatePopleAction>) => {
       state.people = state.people?.map((person) =>
         person.id === action.payload.id
           ? { ...person, ...action.payload }
@@ -45,7 +45,7 @@ export const peopleSlice = createSlice({
 export const {
   addPeople,
   toggleLoading,
-  updatePerson,
+  updatePoeple,
   pageTransfer,
   changePage,
   searchTransfer,

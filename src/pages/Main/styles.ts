@@ -2,7 +2,6 @@ export const textField = {
   id: 'search',
   fullWidth: true,
   type: 'search',
-  variant: 'filled',
 };
 
 export const containerSx = {
@@ -17,7 +16,7 @@ export const containerSx = {
 
 export const paginationSx = {
   sx: {
-    marginTop: 'auto',
-    marginBottom: '5px',
+    position: 'fixed',
+    bottom: '15px',
   },
 };
