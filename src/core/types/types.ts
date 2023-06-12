@@ -26,11 +26,6 @@ export type EmptyProps = {
   title: string;
 };
 
-export type UpdatePopleAction = {
-  id: string;
-  [field: string]: string;
-};
-
 export type UpdatePersonAction = {
   [field: string]: string;
 };

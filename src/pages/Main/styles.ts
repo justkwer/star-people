@@ -17,6 +17,9 @@ export const containerSx = {
 export const paginationSx = {
   sx: {
     position: 'fixed',
-    bottom: '15px',
+    bottom: 5,
+    borderRadius: 50,
+    padding: '15px',
+    background: 'white',
   },
 };

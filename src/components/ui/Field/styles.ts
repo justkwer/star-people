@@ -1,72 +1,40 @@
 export type FieldSx = {
   required?: boolean;
-  id?: string;
-  label?: string;
   variant?: string;
-  gutterBottom?: boolean;
   textAlign?: string;
   display?: string;
   gap?: string;
+  textOverflow?: string;
+  overflow?: string;
+  whiteSpace?: string;
 };
 
-export type FieldProp = {
-  name: [FieldSx, FieldSx];
-  gender: [FieldSx, FieldSx];
-  ['birth_year']: [FieldSx, FieldSx];
-  height: [FieldSx, FieldSx];
-  mass: [FieldSx, FieldSx];
-};
+export const fieldSx: FieldSx[] = [
+  {
+    required: true,
+    variant: 'filled',
+  },
 
-export const fieldSx: FieldProp = {
-  name: [
-    {
-      required: true,
-      variant: 'filled',
-    },
-    { variant: 'h5', textAlign: 'center' },
-  ],
-  gender: [
-    {
-      required: true,
-      variant: 'filled',
-    },
-    {
-      variant: 'h6',
-      display: 'flex',
-      gap: '10px',
-    },
-  ],
-  ['birth_year']: [
-    {
-      required: true,
-      variant: 'filled',
-    },
-    {
-      variant: 'h6',
-      display: 'flex',
-      gap: '10px',
-    },
-  ],
-  height: [
-    {
-      required: true,
-      variant: 'filled',
-    },
-    {
-      variant: 'h6',
-      display: 'flex',
-      gap: '10px',
-    },
-  ],
-  mass: [
-    {
-      required: true,
-      variant: 'filled',
-    },
-    {
-      variant: 'h6',
-      display: 'flex',
-      gap: '10px',
-    },
-  ],
+  {
+    variant: 'h5',
+    textAlign: 'center',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+  },
+
+  {
+    variant: 'h6',
+    display: 'flex',
+    gap: '10px',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
+];
+
+export const boxSx = {
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
 };

@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
 
 export const PeopleCard: FC<Person & { click?: boolean }> = ({
-  id,
   name,
   height,
   mass,
@@ -35,14 +34,14 @@ export const PeopleCard: FC<Person & { click?: boolean }> = ({
   };
 
   const handleEdit = () => {
-    if (!error) {
+    if (!error && person) {
       dispatch(updatePoeple(person));
       dispatch(changeEdit(!edit));
     }
   };
 
   return (
-    <Grid item xs={4}>
+    <Grid item sx={{ width: '300px' }}>
       <Card onClick={handleClick}>
         <CardActionArea>
           <CardContent {...cardContentSx}>

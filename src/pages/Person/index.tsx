@@ -37,7 +37,7 @@ export const PersonPage = () => {
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
       {person ? (
         <PeopleCard {...person} click={true} />
       ) : (
