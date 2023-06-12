@@ -1,6 +1,3 @@
-import { TypographyProps } from '@mui/material/Typography';
-import { TextFieldProps } from '@mui/material/TextField';
-
 import { People, Person } from '@core/types';
 
 export type PeopleState = {
@@ -31,7 +28,6 @@ export type FieldProps = {
   id: string;
   field: string;
   title: string;
-  prop: [TextFieldProps, TypographyProps];
 };
 
 export type NavigationProps = {

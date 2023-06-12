@@ -8,6 +8,7 @@ import { NavigationProps } from '@/core/types';
 export const Navigation: FC<NavigationProps> = ({ onBurger }) => (
   <Toolbar
     sx={{
+      flexDirection: onBurger ? 'column' : 'flex',
       display: onBurger
         ? { xs: 'flex', md: 'none' }
         : { xs: 'none', md: 'flex' },

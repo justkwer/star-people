@@ -5,8 +5,9 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { FC, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { fieldSx } from './styles';
 
-export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
+export const Field: FC<FieldProps> = ({ id, field, title }) => {
   const { edit } = useSelector(selectPeople);
   const dispatch = useDispatch();
 
@@ -24,9 +25,13 @@ export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
       label="Uncontroled"
       defaultValue={title}
       onChange={handleChange}
-      {...prop[0]}
+      {...fieldSx[field][0]}
     />
   ) : (
-    <Typography {...prop[1]}>{title}</Typography>
+    <Typography {...fieldSx[field][1]}>
+      {field !== 'name' && field !== 'birth_year' && field + ': '}
+      {field === 'birth_year' && 'birth: '}
+      {title}
+    </Typography>
   );
 };

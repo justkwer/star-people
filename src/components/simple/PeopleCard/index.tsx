@@ -6,13 +6,7 @@ import CardActionArea from '@mui/material/CardActionArea';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import { Field } from '@/components';
-import {
-  nameProp,
-  genderProp,
-  birthProp,
-  heightProp,
-  massProp,
-} from './styles';
+import { CardContentSx } from './styles';
 
 export const PeopleCard: FC<Person & { click?: boolean }> = ({
   id,
@@ -32,20 +26,15 @@ export const PeopleCard: FC<Person & { click?: boolean }> = ({
   };
 
   return (
-    <Grid item xs={100}>
-      <Card sx={{ width: 1 / 1 }} onClick={handleClick}>
+    <Grid item xs={4}>
+      <Card onClick={handleClick}>
         <CardActionArea>
-          <CardContent>
-            <Field id={id} field="name" title={name} prop={nameProp} />
-            <Field id={id} field="gender" title={gender} prop={genderProp} />
-            <Field
-              id={id}
-              field="birth_year"
-              title={birth_year}
-              prop={birthProp}
-            />
-            <Field id={id} field="height" title={height} prop={heightProp} />
-            <Field id={id} field="mass" title={mass} prop={massProp} />
+          <CardContent {...CardContentSx}>
+            <Field id={id} field="name" title={name} />
+            <Field id={id} field="gender" title={gender} />
+            <Field id={id} field="birth_year" title={birth_year} />
+            <Field id={id} field="height" title={height} />
+            <Field id={id} field="mass" title={mass} />
           </CardContent>
         </CardActionArea>
       </Card>

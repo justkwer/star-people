@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import { FC } from 'react';
 
 export const Cards: FC<CardsProps> = ({ cards }) => (
-  <Grid container spacing={3}>
+  <Grid container spacing={2}>
     {cards.map((person) => (
       <PeopleCard {...person} key={person.id} />
     ))}

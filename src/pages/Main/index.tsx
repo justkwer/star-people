@@ -10,6 +10,7 @@ import { pageTransfer } from '@store/reducers';
 import { selectPeople } from '@store/selectors';
 import { changePage, searchTransfer } from '@/store/reducers/people';
 import { useDebounce } from '@/core/hooks';
+import { textField, containerSx, paginationSx } from './styles';
 
 export const MainPage = () => {
   const { people, loading, page } = useSelector(selectPeople);
@@ -37,15 +38,12 @@ export const MainPage = () => {
   }, [searchDebounce, dispatch]);
 
   return (
-    <Container>
+    <Container {...containerSx}>
       <TextField
-        id="search"
         label={SEARCH_INPUT}
-        fullWidth
         value={searchText}
         onChange={handleChange}
-        type="search"
-        variant="filled"
+        {...textField}
       />
       {loading ? (
         <CircularProgress />
@@ -55,7 +53,12 @@ export const MainPage = () => {
         ) : (
           <>
             <Cards cards={people} />
-            <Pagination page={page} count={9} onChange={handlePageChange} />
+            <Pagination
+              {...paginationSx}
+              page={page}
+              count={9}
+              onChange={handlePageChange}
+            />
           </>
         )
       ) : (
