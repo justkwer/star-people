@@ -1,5 +1,5 @@
 import { GET_API_PEOPLE } from '@/core/constants';
-import { People, PeopleState, UpdatePopleAction } from '@/core/types';
+import { People, PeopleState, Person } from '@/core/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PeopleState = {
@@ -7,7 +7,6 @@ const initialState: PeopleState = {
   loading: false,
   searchText: undefined,
   page: 1,
-  edit: false,
 };
 
 export const peopleSlice = createSlice({
@@ -29,14 +28,9 @@ export const peopleSlice = createSlice({
     searchTransfer: (state, action: PayloadAction<string>) => ({
       ...state,
     }),
-    toggleEdit: (state, action: PayloadAction<boolean>) => {
-      state.edit = action.payload;
-    },
-    updatePoeple: (state, action: PayloadAction<UpdatePopleAction>) => {
+    updatePoeple: (state, action: PayloadAction<Person>) => {
       state.people = state.people?.map((person) =>
-        person.id === action.payload.id
-          ? { ...person, ...action.payload }
-          : person,
+        person.id === action.payload.id ? action.payload : person,
       );
     },
   },
@@ -49,7 +43,6 @@ export const {
   pageTransfer,
   changePage,
   searchTransfer,
-  toggleEdit,
 } = peopleSlice.actions;
 export const getApiPeople = () => ({ type: GET_API_PEOPLE });
 export const people = peopleSlice.reducer;

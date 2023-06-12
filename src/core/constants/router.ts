@@ -12,6 +12,6 @@ export const navLinks = [
   {
     id: 2,
     name: 'Person',
-    href: 'person/Darth Vader',
+    href: PathsToPage.Person,
   },
 ];

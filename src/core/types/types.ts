@@ -5,12 +5,12 @@ export type PeopleState = {
   loading: boolean;
   page: number;
   searchText?: string;
-  edit: boolean;
 };
 
 export type PersonState = {
   person?: Person;
   edit: boolean;
+  error: boolean;
 };
 
 export type PeopleResponse = {
@@ -34,7 +34,6 @@ export type UpdatePersonAction = {
 };
 
 export type FieldProps = {
-  id: string;
   field: string;
   title: string;
 };

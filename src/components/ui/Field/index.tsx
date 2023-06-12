@@ -1,6 +1,6 @@
 import { FieldProps } from '@/core/types';
-import { updatePoeple } from '@/store/reducers';
-import { selectPeople } from '@/store/selectors';
+import { changeError, updatePerson } from '@/store/reducers';
+import { selectPerson } from '@/store/selectors';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { FC, ChangeEvent, useState } from 'react';
@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fieldSx } from './styles';
 import { Box } from '@mui/material';
 
-export const Field: FC<FieldProps> = ({ id, field, title }) => {
-  const { edit } = useSelector(selectPeople);
+export const Field: FC<FieldProps> = ({ field, title }) => {
+  const { edit } = useSelector(selectPerson);
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
 
@@ -19,14 +19,17 @@ export const Field: FC<FieldProps> = ({ id, field, title }) => {
     if (value) {
       if (error) {
         setError(false);
+        dispatch(changeError(false));
       } else
         dispatch(
-          updatePoeple({
-            id: id,
+          updatePerson({
             [field]: value,
           }),
         );
-    } else setError(true);
+    } else {
+      setError(true);
+      dispatch(changeError(true));
+    }
   };
 
   return edit ? (
