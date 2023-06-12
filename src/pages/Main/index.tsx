@@ -34,8 +34,8 @@ export const MainPage = () => {
   useEffect(() => {
     if (searchDebounce !== '') {
       dispatch(searchTransfer(searchDebounce));
-    }
-  }, [searchDebounce, dispatch]);
+    } else dispatch(pageTransfer(page));
+  }, [searchDebounce, dispatch, page]);
 
   return (
     <Container {...containerSx}>
