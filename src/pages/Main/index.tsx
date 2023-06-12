@@ -4,7 +4,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { pageTransfer } from '@store/reducers';
 import { selectPeople } from '@store/selectors';
@@ -13,9 +13,14 @@ import { useDebounce } from '@/core/hooks';
 import { textField, containerSx, paginationSx } from './styles';
 
 export const MainPage = () => {
-  const { people, loading, page } = useSelector(selectPeople);
+  const { people, loading, page, error, pages } = useSelector(selectPeople);
   const [searchText, setSearchText] = useState<string | null>(null);
   const dispatch = useDispatch();
+
+  const totalPages = useMemo(
+    () => (pages > 10 ? Math.ceil(pages / 10) : 1),
+    [pages],
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchText(e.target.value);
@@ -47,10 +52,9 @@ export const MainPage = () => {
         onChange={handleChange}
         {...textField}
       />
-      {loading ? (
-        <CircularProgress />
-      ) : people ? (
-        people.length === 0 ? (
+      {loading && <CircularProgress />}
+      {people &&
+        (people.length === 0 ? (
           <Empty title={EMPTY_TITLE[0]} />
         ) : (
           <>
@@ -58,14 +62,12 @@ export const MainPage = () => {
             <Pagination
               {...paginationSx}
               page={page}
-              count={9}
+              count={totalPages}
               onChange={handlePageChange}
             />
           </>
-        )
-      ) : (
-        <Empty title={EMPTY_TITLE[1]} />
-      )}
+        ))}
+      {error && <Empty title={EMPTY_TITLE[1]} />}
     </Container>
   );
 };

@@ -4,7 +4,9 @@ export type PeopleState = {
   people?: Person[];
   loading: boolean;
   page: number;
+  pages: number;
   searchText?: string;
+  error: boolean;
 };
 
 export type PersonState = {

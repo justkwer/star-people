@@ -7,6 +7,8 @@ const initialState: PeopleState = {
   loading: false,
   searchText: undefined,
   page: 1,
+  pages: 1,
+  error: false,
 };
 
 export const peopleSlice = createSlice({
@@ -25,6 +27,9 @@ export const peopleSlice = createSlice({
     toggleLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    addPages: (state, action: PayloadAction<number>) => {
+      state.pages = action.payload;
+    },
     searchTransfer: (state, action: PayloadAction<string>) => ({
       ...state,
     }),
@@ -32,6 +37,9 @@ export const peopleSlice = createSlice({
       state.people = state.people?.map((person) =>
         person.id === action.payload.id ? action.payload : person,
       );
+    },
+    toggleError: (state, action: PayloadAction<boolean>) => {
+      state.error = action.payload;
     },
   },
 });
@@ -42,6 +50,8 @@ export const {
   updatePoeple,
   pageTransfer,
   changePage,
+  toggleError,
+  addPages,
   searchTransfer,
 } = peopleSlice.actions;
 export const getApiPeople = () => ({ type: GET_API_PEOPLE });
