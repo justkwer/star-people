@@ -1,1 +1,0 @@
-export { searchRegExp } from './functions';

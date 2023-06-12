@@ -4,10 +4,12 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import { resolve } from 'path';
 import { cwd } from 'process';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
   root: './public',
+  build: {
+    outDir: '../dist',
+  },
   resolve: {
     alias: { '/src': resolve(cwd(), 'src') },
   },

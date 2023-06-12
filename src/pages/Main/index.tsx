@@ -1,65 +1,61 @@
 import { Cards, Empty } from '@/components';
 import { searchInput, emptyTitle } from '@/core/constants';
-import { searchRegExp } from '@/core/utils';
-import { selectPeople } from '@/store/selectors';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
-import { ChangeEvent, useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { pageTransfer } from '@store/reducers';
+import { selectPeople } from '@store/selectors';
+import { changePage, searchTransfer } from '@/store/reducers/people';
+import { useDebounce } from '@/core/hooks';
 
 export const MainPage = () => {
-  const { people, loading } = useSelector(selectPeople);
-  const [value, setValue] = useState<string>('');
-  const [activePage, setActivePage] = useState<number>(1);
+  const { people, loading, page } = useSelector(selectPeople);
+  const [searchText, setSearchText] = useState<string>('');
+  const dispatch = useDispatch();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setValue(e.target.value.trim());
+    setSearchText(e.target.value);
 
-  const handlePageChange = (event: ChangeEvent<unknown>, page: number) =>
-    setActivePage(page);
+  const searchDebounce = useDebounce(searchText, 1000);
 
-  const searchedPerson = useMemo(
-    () =>
-      value !== searchInput
-        ? people?.filter((person) => person.name.match(searchRegExp(value)))
-        : people,
-    [value, people],
-  );
+  const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
+    dispatch(changePage(newPage));
+    dispatch(pageTransfer(newPage));
+  };
 
-  const personLength = useMemo(
-    () => searchedPerson?.length ?? 3,
-    [searchedPerson],
-  );
-  const lastPerson = useMemo(() => activePage * 4, [activePage]);
-  const firstPerson = useMemo(() => lastPerson - 4, [lastPerson]);
-  const count = useMemo(() => Math.ceil(personLength / 4), [personLength]);
+  useEffect(() => {
+    if (!people) dispatch(pageTransfer(page));
+  }, [dispatch, page, people]);
+
+  useEffect(() => {
+    if (searchDebounce !== '') {
+      dispatch(searchTransfer(searchDebounce));
+    }
+  }, [searchDebounce, dispatch]);
 
   return (
     <Container>
+      <TextField
+        id="search"
+        label={searchInput}
+        fullWidth
+        value={searchText}
+        onChange={handleChange}
+        type="search"
+        variant="filled"
+      />
       {loading ? (
         <CircularProgress />
-      ) : searchedPerson ? (
-        searchedPerson.length === 0 ? (
+      ) : people ? (
+        people.length === 0 ? (
           <Empty title={emptyTitle[0]} />
         ) : (
           <>
-            <TextField
-              id="search"
-              label={searchInput}
-              fullWidth
-              value={value}
-              onChange={handleChange}
-              type="search"
-              variant="filled"
-            />
-            <Cards cards={searchedPerson.slice(firstPerson, lastPerson)} />
-            <Pagination
-              page={activePage}
-              count={count}
-              onChange={handlePageChange}
-            />
+            <Cards cards={people} />
+            <Pagination page={page} count={9} onChange={handlePageChange} />
           </>
         )
       ) : (

@@ -3,7 +3,9 @@ export {
   addPeople,
   toggleLoading,
   updatePerson,
+  pageTransfer,
+  changePage,
+  searchTransfer,
+  toggleEdit,
   getApiPeople,
 } from '@store/reducers/people';
-
-export { person, toggleEdit, getApiPerson } from '@store/reducers/person';

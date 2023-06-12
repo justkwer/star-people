@@ -1,7 +1,8 @@
-import { GET_API_PEOPLE } from '@/core/constants';
 import { takeEvery } from 'redux-saga/effects';
-import { addPeopleWorker } from '@store/saga/people';
+import { addPeopleWorker, searchPeopleWorker } from '@store/saga/people';
+import { pageTransfer, searchTransfer } from '../reducers';
 
 export function* rootSaga() {
-  yield takeEvery(GET_API_PEOPLE, addPeopleWorker);
+  yield takeEvery(pageTransfer, addPeopleWorker);
+  yield takeEvery(searchTransfer, searchPeopleWorker);
 }

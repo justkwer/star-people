@@ -4,11 +4,10 @@ import { TextFieldProps } from '@mui/material/TextField';
 import { People, Person } from '@core/types';
 
 export type PeopleState = {
-  people: undefined | Person[];
+  people?: Person[];
   loading: boolean;
-};
-
-export type PersonState = {
+  page: number;
+  searchText?: string;
   edit: boolean;
 };
 

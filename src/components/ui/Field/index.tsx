@@ -1,13 +1,13 @@
 import { FieldProps } from '@/core/types';
 import { updatePerson } from '@/store/reducers';
-import { selectPerson } from '@/store/selectors';
+import { selectPeople } from '@/store/selectors';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { FC, ChangeEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 export const Field: FC<FieldProps> = ({ id, field, title, prop }) => {
-  const { edit } = useSelector(selectPerson);
+  const { edit } = useSelector(selectPeople);
   const dispatch = useDispatch();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

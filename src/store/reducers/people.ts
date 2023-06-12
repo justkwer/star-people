@@ -4,7 +4,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: PeopleState = {
   people: undefined,
-  loading: true,
+  loading: false,
+  searchText: undefined,
+  page: 1,
+  edit: false,
 };
 
 export const peopleSlice = createSlice({
@@ -14,11 +17,24 @@ export const peopleSlice = createSlice({
     addPeople: (state, action: PayloadAction<People[]>) => ({
       ...state,
       people: action.payload.map((el) => ({ ...el, id: el.name })),
-      loading: false,
+    }),
+    pageTransfer: (state, action: PayloadAction<number>) => ({
+      ...state,
+    }),
+    changePage: (state, action: PayloadAction<number>) => ({
+      ...state,
+      page: action.payload,
     }),
     toggleLoading: (state, action: PayloadAction<boolean>) => ({
       ...state,
       loading: action.payload,
+    }),
+    searchTransfer: (state, action: PayloadAction<string>) => ({
+      ...state,
+    }),
+    toggleEdit: (state, action: PayloadAction<boolean>) => ({
+      ...state,
+      edit: action.payload,
     }),
     updatePerson: (state, action: PayloadAction<UpdatePersonAction>) => ({
       ...state,
@@ -31,6 +47,14 @@ export const peopleSlice = createSlice({
   },
 });
 
-export const { addPeople, toggleLoading, updatePerson } = peopleSlice.actions;
+export const {
+  addPeople,
+  toggleLoading,
+  updatePerson,
+  pageTransfer,
+  changePage,
+  searchTransfer,
+  toggleEdit,
+} = peopleSlice.actions;
 export const getApiPeople = () => ({ type: GET_API_PEOPLE });
 export const people = peopleSlice.reducer;

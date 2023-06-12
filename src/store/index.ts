@@ -1,6 +1,6 @@
 import createSagaMiddleware from 'redux-saga';
 import { configureStore } from '@reduxjs/toolkit';
-import { people, person } from '@store/reducers';
+import { people } from '@store/reducers';
 import { rootSaga } from '@store/saga';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -8,7 +8,6 @@ const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
     people,
-    person,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
