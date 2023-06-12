@@ -9,7 +9,7 @@ export const Burger = () => {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
-    setOpen(!open);
+    setOpen((prevState) => !prevState);
   };
 
   return (

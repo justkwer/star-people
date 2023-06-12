@@ -1,5 +1,5 @@
 import { Cards, Empty } from '@/components';
-import { searchInput, emptyTitle } from '@/core/constants';
+import { SEARCH_INPUT, EMPTY_TITLE } from '@/core/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
 import Pagination from '@mui/material/Pagination';
@@ -40,7 +40,7 @@ export const MainPage = () => {
     <Container>
       <TextField
         id="search"
-        label={searchInput}
+        label={SEARCH_INPUT}
         fullWidth
         value={searchText}
         onChange={handleChange}
@@ -51,7 +51,7 @@ export const MainPage = () => {
         <CircularProgress />
       ) : people ? (
         people.length === 0 ? (
-          <Empty title={emptyTitle[0]} />
+          <Empty title={EMPTY_TITLE[0]} />
         ) : (
           <>
             <Cards cards={people} />
@@ -59,7 +59,7 @@ export const MainPage = () => {
           </>
         )
       ) : (
-        <Empty title={emptyTitle[1]} />
+        <Empty title={EMPTY_TITLE[1]} />
       )}
     </Container>
   );

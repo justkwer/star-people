@@ -3,14 +3,14 @@ import { addPeople, toggleLoading } from '@store/reducers';
 import { PeopleResponse } from '@/core/types';
 import { AxiosResponse } from 'axios';
 import { api } from '@/core/api';
-import { apiPage, apiSearch } from '@/core/constants';
+import { API_PAGE, API_SEARCH } from '@/core/constants';
 
 export function* addPeopleWorker(action: { payload: number }) {
   try {
     yield put(toggleLoading(true));
     const { data }: AxiosResponse<PeopleResponse> = yield call(
       api.get,
-      `${apiPage}${action.payload}`,
+      `${API_PAGE}${action.payload}`,
     );
     yield put(addPeople(data.results));
     yield put(toggleLoading(false));
@@ -24,7 +24,7 @@ export function* searchPeopleWorker(action: { payload: string }) {
     yield put(toggleLoading(true));
     const { data }: AxiosResponse<PeopleResponse> = yield call(
       api.get,
-      `${apiSearch}${action.payload}`,
+      `${API_SEARCH}${action.payload}`,
     );
     yield put(addPeople(data.results));
     yield put(toggleLoading(false));
