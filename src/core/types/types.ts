@@ -1,25 +1,24 @@
-import { People, Person } from '@core/types';
-
-export type PeopleState = {
-  people?: Person[];
-  loading: boolean;
-  page: number;
-  pages: number;
-  searchText?: string;
-  error: boolean;
-};
-
-export type PersonState = {
-  person?: Person;
-  edit: boolean;
-  error: boolean;
-};
+import { MyPerson, Person } from '@core/types';
 
 export type PeopleResponse = {
   count: number;
-  next: string;
-  previous: null;
-  results: People[];
+  next: null | string;
+  previous: null | string;
+  results: Person[];
+};
+
+export type PeopleState = {
+  people?: MyPerson[];
+  loading: boolean;
+  error: boolean;
+  page: number;
+  pages: number;
+};
+
+export type PersonState = {
+  person?: MyPerson;
+  edit: boolean;
+  error: boolean;
 };
 
 export type EmptyProps = {
@@ -40,5 +39,5 @@ export type NavigationProps = {
 };
 
 export type CardsProps = {
-  cards: Person[];
+  cards: MyPerson[];
 };

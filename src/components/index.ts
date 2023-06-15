@@ -3,7 +3,7 @@ export { Navigation } from './simple/Navigation';
 export { Burger } from './simple/Burger';
 export { Cards } from './simple/Cards';
 export { Empty } from './simple/Empty';
-export { PeopleCard } from './simple/PeopleCard';
+export { Card } from './simple/Card';
 
 export { Field } from './ui/Field';
 

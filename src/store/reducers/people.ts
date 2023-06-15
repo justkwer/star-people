@@ -1,58 +1,49 @@
-import { GET_API_PEOPLE } from '@/core/constants';
-import { People, PeopleState, Person } from '@/core/types';
+import { MyPerson, PeopleState } from '@/core/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getPeople } from '@store/api';
 
 const initialState: PeopleState = {
-  people: undefined,
   loading: false,
-  searchText: undefined,
+  error: false,
   page: 1,
   pages: 1,
-  error: false,
 };
 
 export const peopleSlice = createSlice({
   name: 'people',
   initialState,
   reducers: {
-    addPeople: (state, action: PayloadAction<People[]>) => {
-      state.people = action.payload.map((el) => ({ ...el, id: el.name }));
+    changePage: (state, { payload }: PayloadAction<number>) => {
+      state.page = payload;
     },
-    pageTransfer: (state, action: PayloadAction<number>) => ({
-      ...state,
-    }),
-    changePage: (state, action: PayloadAction<number>) => {
-      state.page = action.payload;
+    toggleLoading: (state, { payload }: PayloadAction<boolean>) => {
+      state.loading = payload;
     },
-    toggleLoading: (state, action: PayloadAction<boolean>) => {
-      state.loading = action.payload;
-    },
-    addPages: (state, action: PayloadAction<number>) => {
-      state.pages = action.payload;
-    },
-    searchTransfer: (state, action: PayloadAction<string>) => ({
-      ...state,
-    }),
-    updatePoeple: (state, action: PayloadAction<Person>) => {
+    updatePeople: (state, { payload }: PayloadAction<MyPerson>) => {
       state.people = state.people?.map((person) =>
-        person.id === action.payload.id ? action.payload : person,
+        person.id === payload.id ? payload : person,
       );
     },
-    toggleError: (state, action: PayloadAction<boolean>) => {
-      state.error = action.payload;
+    toggleError: (state, { payload }: PayloadAction<boolean>) => {
+      state.error = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getPeople.pending, (state) => {
+      if (!state.error) state.error = false;
+      state.loading = true;
+    });
+    builder.addCase(getPeople.fulfilled, (state, { payload }) => {
+      state.people = payload.results.map((el) => ({ ...el, id: el.name }));
+      state.pages = payload.count;
+      state.loading = false;
+    });
+    builder.addCase(getPeople.rejected, (state) => {
+      state.error = true;
+      state.loading = false;
+    });
   },
 });
 
-export const {
-  addPeople,
-  toggleLoading,
-  updatePoeple,
-  pageTransfer,
-  changePage,
-  toggleError,
-  addPages,
-  searchTransfer,
-} = peopleSlice.actions;
-export const getApiPeople = () => ({ type: GET_API_PEOPLE });
+export const { updatePeople, changePage } = peopleSlice.actions;
 export const people = peopleSlice.reducer;

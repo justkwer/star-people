@@ -4,10 +4,7 @@ import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import Drawer from '@mui/material/Drawer';
 import { Navigation } from '@components';
-
-const iconSx = {
-  sx: { display: { xs: 'block', md: 'none' }, gap: '20px' },
-};
+import { iconSx } from '@/components/simple/Burger/styled.ts';
 
 export const Burger = () => {
   const [open, setOpen] = useState(false);
@@ -18,7 +15,7 @@ export const Burger = () => {
 
   return (
     <>
-      <IconButton onClick={handleClick} {...iconSx}>
+      <IconButton onClick={handleClick} sx={iconSx}>
         {open ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
       <Drawer anchor="right" open={open} onClose={handleClick}>

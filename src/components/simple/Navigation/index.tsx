@@ -4,17 +4,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import Toolbar from '@mui/material/Toolbar';
 import { FC } from 'react';
 import { NavigationProps } from '@/core/types';
+import { navigationSx } from '@/components/simple/Navigation/styled.ts';
 
 export const Navigation: FC<NavigationProps> = ({ onBurger }) => (
-  <Toolbar
-    sx={{
-      flexDirection: onBurger ? 'column' : 'flex',
-      display: onBurger
-        ? { xs: 'flex', md: 'none' }
-        : { xs: 'none', md: 'flex' },
-      gap: '20px',
-    }}
-  >
+  <Toolbar sx={navigationSx(onBurger)}>
     {navLinks.map(({ id, name, href }) => (
       <Link
         component={RouterLink}

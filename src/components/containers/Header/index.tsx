@@ -1,18 +1,11 @@
 import { Burger, Logo, Navigation } from '@/components';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
-
-const containerSx = {
-  sx: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-};
+import { headerSx } from './styled.ts';
 
 export const Header = () => (
   <AppBar position="sticky">
-    <Container {...containerSx}>
+    <Container sx={headerSx}>
       <Logo />
       <Navigation />
       <Burger />

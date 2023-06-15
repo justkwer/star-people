@@ -1,24 +1,20 @@
 import Container from '@mui/material/Container';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { PeopleCard } from '@/components';
-import { useSelector } from 'react-redux';
+import { Link as RouterLink, useParams } from 'react-router-dom';
+import { Card } from '@/components';
 import { selectPeople, selectPerson } from '@/store/selectors';
-import { useDispatch } from 'react-redux';
 import { addPerson, changeEdit } from '@/store/reducers';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import { Link as RouterLink } from 'react-router-dom';
 import { PathsToPage } from '@/core/constants';
-
-const size = { sx: { fontSize: '20px' } };
+import { useAppDispatch, useAppSelector } from '@core/hooks';
+import { personSize, personSx } from '@/pages/Person/styled.ts';
 
 export const PersonPage = () => {
   const { name } = useParams();
-  const { people } = useSelector(selectPeople);
-  const { person, edit } = useSelector(selectPerson);
-
-  const dispatch = useDispatch();
+  const { people } = useAppSelector(selectPeople);
+  const { person, edit } = useAppSelector(selectPerson);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (people && !edit) {
@@ -30,18 +26,19 @@ export const PersonPage = () => {
     }
   }, [dispatch, people, person, name, edit]);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(changeEdit(false));
-    };
-  }, [dispatch]);
+    },
+    [dispatch],
+  );
 
   return (
-    <Container sx={{ display: 'flex', justifyContent: 'center' }}>
+    <Container sx={personSx}>
       {person ? (
-        <PeopleCard {...person} click={true} />
+        <Card {...person} click={true} />
       ) : (
-        <Box {...size}>
+        <Box sx={personSize}>
           Please
           <Link
             component={RouterLink}
@@ -49,7 +46,7 @@ export const PersonPage = () => {
             href={PathsToPage.Main}
             underline="hover"
             variant="button"
-            {...size}
+            sx={personSize}
           >
             {' pick '}
           </Link>

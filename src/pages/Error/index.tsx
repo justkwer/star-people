@@ -1,7 +1,11 @@
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { errorSx } from '@/pages/Error/styled.ts';
+
 export const ErrorPage = () => (
-  <div>
-    <h1>Oops!</h1>
-    <p>Sorry, an unexpected error has occurred.</p>
-    <p>Something went wrong</p>
-  </div>
+  <Box sx={errorSx}>
+    <Typography variant="h2">Oops!</Typography>
+    <Typography>Sorry, an unexpected error has occurred.</Typography>
+    <Typography>Something went wrong</Typography>
+  </Box>
 );

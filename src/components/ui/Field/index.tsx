@@ -3,32 +3,29 @@ import { changeError, updatePerson } from '@/store/reducers';
 import { selectPerson } from '@/store/selectors';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { FC, ChangeEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { boxSx, fieldSx } from './styles';
+import { ChangeEvent, FC, useState } from 'react';
+import { fieldName, fieldSx } from './styled';
 import { Box } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '@core/hooks';
+import { getDescriptionTitle } from '@core/utils';
 
 export const Field: FC<FieldProps> = ({ field, title }) => {
-  const { edit } = useSelector(selectPerson);
-  const dispatch = useDispatch();
+  const { edit } = useAppSelector(selectPerson);
+  const dispatch = useAppDispatch();
   const [error, setError] = useState(false);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value.trim();
 
-    if (value) {
-      if (error) {
-        setError(false);
-        dispatch(changeError(false));
-      } else
-        dispatch(
-          updatePerson({
-            [field]: value,
-          }),
-        );
+    if (value && !error) {
+      dispatch(
+        updatePerson({
+          [field]: value,
+        }),
+      );
     } else {
-      setError(true);
-      dispatch(changeError(true));
+      setError(Boolean(!value));
+      dispatch(changeError(Boolean(!value)));
     }
   };
 
@@ -38,20 +35,17 @@ export const Field: FC<FieldProps> = ({ field, title }) => {
       defaultValue={title}
       label={field}
       onChange={handleChange}
-      {...fieldSx.at(0)}
+      variant="filled"
+      {...fieldSx.textField}
+      sx={fieldSx.sx}
     />
   ) : (
     <Typography
-      {...fieldSx.at(field == 'name' ? 1 : 2)}
-      sx={{
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-      }}
+      {...fieldSx.typography}
+      sx={field === 'name' ? fieldName : fieldSx.sx}
     >
-      {field !== 'name' && field !== 'birth_year' && field + ': '}
-      {field === 'birth_year' && 'birth: '}
-      <Box color="blue" {...boxSx}>
+      {getDescriptionTitle(field)}
+      <Box color="blue" component="span" sx={fieldSx.sx}>
         {title}
       </Box>
     </Typography>

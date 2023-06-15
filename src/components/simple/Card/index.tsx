@@ -2,20 +2,20 @@ import { Person } from '@/core/types';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import { FC } from 'react';
-import Card from '@mui/material/Card';
+import { Card as CardMui } from '@mui/material';
 import CardContent from '@mui/material/CardContent';
 import CardActionArea from '@mui/material/CardActionArea';
 import Grid from '@mui/material/Grid';
 import { useNavigate } from 'react-router-dom';
 import { Field } from '@/components';
-import { cardContentSx, fabSx } from './styles';
-import { changeEdit, updatePoeple } from '@/store/reducers';
+import { cardContentSx, cardFabSx, cardGridSx } from './styles';
+import { changeEdit, updatePeople } from '@/store/reducers';
 import Fab from '@mui/material/Fab';
 import { selectPerson } from '@/store/selectors';
-import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@mui/material/Tooltip';
+import { useAppDispatch, useAppSelector } from '@core/hooks';
 
-export const PeopleCard: FC<Person & { click?: boolean }> = ({
+export const Card: FC<Person & { click?: boolean }> = ({
   name,
   height,
   mass,
@@ -24,8 +24,8 @@ export const PeopleCard: FC<Person & { click?: boolean }> = ({
   click,
 }) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { edit, error, person } = useSelector(selectPerson);
+  const dispatch = useAppDispatch();
+  const { edit, error, person } = useAppSelector(selectPerson);
 
   const handleClick = () => {
     if (click === undefined) {
@@ -34,17 +34,18 @@ export const PeopleCard: FC<Person & { click?: boolean }> = ({
   };
 
   const handleEdit = () => {
-    if (!error && person) {
-      dispatch(updatePoeple(person));
-      dispatch(changeEdit(!edit));
+    if (!error && person && edit) {
+      dispatch(updatePeople(person));
     }
+
+    dispatch(changeEdit(!edit));
   };
 
   return (
-    <Grid item sx={{ width: '300px' }}>
-      <Card onClick={handleClick}>
+    <Grid item sx={cardGridSx}>
+      <CardMui onClick={handleClick}>
         <CardActionArea>
-          <CardContent {...cardContentSx}>
+          <CardContent sx={cardContentSx}>
             <Field field="name" title={name} />
             <Field field="gender" title={gender} />
             <Field field="birth_year" title={birth_year} />
@@ -53,11 +54,11 @@ export const PeopleCard: FC<Person & { click?: boolean }> = ({
           </CardContent>
         </CardActionArea>
         <Tooltip title={edit ? 'Save' : 'Edit'} placement="left">
-          <Fab {...fabSx(click)} onClick={handleEdit}>
+          <Fab sx={cardFabSx(click)} onClick={handleEdit}>
             {edit ? <DoneIcon /> : <EditIcon />}
           </Fab>
         </Tooltip>
-      </Card>
+      </CardMui>
     </Grid>
   );
 };

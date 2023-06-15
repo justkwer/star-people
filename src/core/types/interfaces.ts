@@ -1,4 +1,4 @@
-export interface People {
+export interface Person {
   name: string;
   height: string;
   mass: string;
@@ -17,6 +17,6 @@ export interface People {
   url: string;
 }
 
-export interface Person extends People {
+export interface MyPerson extends Person {
   id: string;
 }

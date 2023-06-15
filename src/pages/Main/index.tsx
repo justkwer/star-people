@@ -1,73 +1,76 @@
 import { Cards, Empty } from '@/components';
-import { SEARCH_INPUT, EMPTY_TITLE } from '@/core/constants';
+import { EMPTY_TITLE, SEARCH_INPUT } from '@/core/constants';
 import CircularProgress from '@mui/material/CircularProgress';
 import Container from '@mui/material/Container';
-import Pagination from '@mui/material/Pagination';
 import TextField from '@mui/material/TextField';
 import { ChangeEvent, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { pageTransfer } from '@store/reducers';
 import { selectPeople } from '@store/selectors';
-import { changePage, searchTransfer } from '@/store/reducers/people';
-import { useDebounce } from '@/core/hooks';
-import { textField, containerSx, paginationSx } from './styles';
+import { changePage } from '@/store/reducers/people';
+import { useAppDispatch, useAppSelector, useDebounce } from '@/core/hooks';
+import { containerSx, paginationSx, textField } from './styled';
+import { getPeople } from '@store/api';
+import Pagination from '@mui/material/Pagination';
 
 export const MainPage = () => {
-  const { people, loading, page, error, pages } = useSelector(selectPeople);
+  const { people, loading, page, error, pages } = useAppSelector(selectPeople);
   const [searchText, setSearchText] = useState<string | null>(null);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-  const totalPages = useMemo(
-    () => (pages > 10 ? Math.ceil(pages / 10) : 1),
-    [pages],
-  );
+  const totalPages = useMemo(() => Math.ceil(pages / 10) ?? 1, [pages]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setSearchText(e.target.value);
 
   const searchDebounce = useDebounce(searchText ?? '', 1000);
 
-  const handlePageChange = (event: ChangeEvent<unknown>, newPage: number) => {
+  const handlePageChange = (_event: ChangeEvent<unknown>, newPage: number) => {
     dispatch(changePage(newPage));
-    dispatch(pageTransfer(newPage));
+    dispatch(getPeople(newPage));
   };
 
   useEffect(() => {
-    if (!people) dispatch(pageTransfer(page));
+    if (!people) {
+      dispatch(getPeople(page));
+    }
   }, [dispatch, page, people]);
 
   useEffect(() => {
     if (searchDebounce !== '') {
-      dispatch(searchTransfer(searchDebounce));
-    } else if (searchDebounce === '' && searchText !== null) {
-      dispatch(pageTransfer(page));
+      dispatch(getPeople(searchDebounce));
+      return;
+    }
+
+    if (searchDebounce === '' && searchText !== null) {
+      dispatch(getPeople(page));
     }
   }, [dispatch, page, searchDebounce]);
 
   return (
-    <Container {...containerSx}>
+    <Container sx={containerSx}>
       <TextField
         label={SEARCH_INPUT}
         value={searchText ?? ''}
         onChange={handleChange}
-        {...textField}
+        sx={textField}
+        fullWidth={true}
       />
       {loading && <CircularProgress />}
       {people &&
+        !loading &&
         (people.length === 0 ? (
-          <Empty title={EMPTY_TITLE[0]} />
+          <Empty title={EMPTY_TITLE.notFound} />
         ) : (
-          <>
-            <Cards cards={people} />
-            <Pagination
-              {...paginationSx}
-              page={page}
-              count={totalPages}
-              onChange={handlePageChange}
-            />
-          </>
+          <Cards cards={people} />
         ))}
-      {error && <Empty title={EMPTY_TITLE[1]} />}
+      {people && (
+        <Pagination
+          sx={paginationSx}
+          page={page}
+          count={totalPages}
+          onChange={handlePageChange}
+        />
+      )}
+      {error && <Empty title={EMPTY_TITLE.error} />}
     </Container>
   );
 };
