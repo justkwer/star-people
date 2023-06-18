@@ -40,7 +40,7 @@ export const MainPage = () => {
       return;
     }
 
-    if (searchDebounce === '' && searchText !== null) {
+    if (searchText !== null) {
       dispatch(getPeople(page));
     }
   }, [dispatch, page, searchDebounce]);
